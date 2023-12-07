@@ -32,6 +32,13 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   List<Widget> header = [];
+  bool headerVisible = true;
+  pressButt() {
+    print('press');
+    setState(() {
+      headerVisible = !headerVisible;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,82 +50,70 @@ class _MyHomePageState extends State<MyHomePage> {
 
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
       body: Stack(
         children: [
-          Row(
+          Column(
             children: [
-              Expanded(
-                child: Column(
+              Container(
+                color: const Color.fromARGB(255, 85, 21, 21),
+                height: 100,
+                child: Row(
                   children: [
-                    DragTarget<Widget>(
-                      builder: (context, candidateItems, rejectedItems) {
-                        return Container(
-                          color: Colors.green,
-                          height: screenHeight * 0.17,
-                          alignment: AlignmentDirectional.center,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: header, ),
-                        );
-                      },
-                      onAccept: (item) {
-                        addToHeader(item);
-                        print(header);
-                      },
+                    SizedBox(
+                      width: 100,
+                      height: 100,
+                      child: Stack(
+                        alignment: AlignmentDirectional.topCenter,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.all(8),
+                            child: Visibility(
+                              visible: !headerVisible,
+                              child: FloatingActionButton(
+                                onPressed: pressButt,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                    Container(
-                      color: const Color.fromARGB(255, 85, 21, 21),
-                      height: screenHeight * 0.6,
-                    ),
-                    Container(
-                      color: const Color.fromARGB(255, 175, 76, 142),
-                      height: screenHeight * 0.17,
-                    )
                   ],
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  color: const Color.fromARGB(255, 175, 76, 142),
                 ),
               ),
             ],
           ),
           Positioned(
-            right: 1,
-            child: Container(
-              color: Colors.blue,
-              width: 150,
-              height: screenHeight,
-              child: SingleChildScrollView(
+            left: 0,
+            child: Visibility(
+              visible: headerVisible,
+              child: Container(
+                color: Colors.blue,
+                width: 100,
+                height: screenHeight,
+                child: SingleChildScrollView(
                   child: Padding(
-                padding: const EdgeInsets.all(8),
-                child: Column(children: [
-                  LongPressDraggable<Widget>(
-                    data: Padding(padding: EdgeInsets.all(8),child:  Container(
-                      width: 100,
-                      height: 50,
-                      color: Colors.white,
-                      child: const Center(child: Text('Text')),
-                    )),
-                    child: Container(
-                      width: 100,
-                      height: 50,
-                      color: Colors.white,
-                      child: const Center(child: Text('Text')),
+                    padding: const EdgeInsets.all(8),
+                    child: Column(
+                      children: [
+                        FloatingActionButton(
+                          onPressed: pressButt,
+                        ),
+                        Container(
+                          width: 100,
+                          height: 50,
+                          color: Colors.white,
+                          child: const Center(child: Text('Text')),
+                        ),
+                      ],
                     ),
-                    feedback: Material(
-                      elevation: 5,
-                      child: Container(
-                        width: 100,
-                        height: 50,
-                        color: Colors.white,
-                        child: const Center(child: Text('Text')),
-                      ),
-                    ),
-                    childWhenDragging: Container(),
                   ),
-                ]),
-              )),
+                ),
+              ),
             ),
           ),
         ],
