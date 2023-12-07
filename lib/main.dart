@@ -59,10 +59,15 @@ class _MyHomePageState extends State<MyHomePage> {
                         return Container(
                           color: Colors.green,
                           height: screenHeight * 0.17,
+                          alignment: AlignmentDirectional.center,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: header, ),
                         );
                       },
                       onAccept: (item) {
                         addToHeader(item);
+                        print(header);
                       },
                     ),
                     Container(
@@ -89,12 +94,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: const EdgeInsets.all(8),
                 child: Column(children: [
                   LongPressDraggable<Widget>(
-                    data: Container(
+                    data: Padding(padding: EdgeInsets.all(8),child:  Container(
                       width: 100,
                       height: 50,
                       color: Colors.white,
                       child: const Center(child: Text('Text')),
-                    ),
+                    )),
                     child: Container(
                       width: 100,
                       height: 50,
