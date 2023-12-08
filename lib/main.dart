@@ -31,7 +31,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<Widget> header = [];
+  Widget? choiceWidget;
   bool headerVisible = true;
   pressButt() {
     print('press');
@@ -42,9 +42,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    addToHeader(widgetToAdd) {
+    setWidget(widgetToAdd) {
       setState(() {
-        header.add(widgetToAdd);
+        choiceWidget = widgetToAdd;
       });
     }
 
@@ -83,6 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Expanded(
                 child: Container(
                   color: const Color.fromARGB(255, 175, 76, 142),
+                  child: Center(child: choiceWidget),
                 ),
               ),
             ],
@@ -103,12 +104,38 @@ class _MyHomePageState extends State<MyHomePage> {
                         FloatingActionButton(
                           onPressed: pressButt,
                         ),
-                        Container(
-                          width: 100,
-                          height: 50,
-                          color: Colors.white,
-                          child: const Center(child: Text('Text')),
+                        InkWell(
+                          onTap: () {
+                            setWidget(Container(
+                              width: 100,
+                              height: 50,
+                              color: Colors.white,
+                              child: const Center(child: Text('Text')),
+                            ));
+                          },
+                          child: Container(
+                            width: 100,
+                            height: 50,
+                            color: Colors.white,
+                            child: const Center(child: Text('Text')),
+                          ),
                         ),
+                        InkWell(
+                          onTap: () {
+                            setWidget(Container(
+                              width: 100,
+                              height: 50, 
+                              color: Colors.white,
+                              child: const Center(child: Text('New text')),
+                            ));
+                          },
+                          child: Container(
+                            width: 100,
+                            height: 50,
+                            color: Colors.white,
+                            child: const Center(child: Text('New text')),
+                          ),
+                        )
                       ],
                     ),
                   ),
