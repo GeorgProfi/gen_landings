@@ -103,23 +103,17 @@ class _MyHomePageState extends State<MyHomePage> {
                 height: 100,
                 child: Row(
                   children: [
+                    AnimatedContainer(
+                      duration: Duration(milliseconds: 500),
+                      width: headerVisible ? 100 : 0,
+                    ),
                     SizedBox(
-                      width: 100,
-                      height: 100,
-                      child: Stack(
-                        alignment: AlignmentDirectional.topCenter,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8),
-                            child: Visibility(
-                              visible: !headerVisible,
-                              child: FloatingActionButton(
-                                onPressed: pressButt,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                      width: 20,
+                    ),
+                    IconButton(
+                      icon: Icon(headerVisible ? Icons.arrow_back : Icons.menu),
+                      onPressed: pressButt,
+                      color: Colors.white,
                     ),
                     const Spacer(),
                     Visibility(
@@ -163,7 +157,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               Expanded(
                 child: Container(
-                  color: const Color.fromARGB(255, 175, 76, 142),
+                  color: Colors.white,
                   child: Center(child: visibleWidget),
                 ),
               ),
@@ -171,67 +165,93 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           Positioned(
             left: 0,
-            child: Visibility(
-              visible: headerVisible,
-              child: Container(
-                color: Colors.blue,
-                width: 100,
-                height: screenHeight,
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: Column(
-                      children: [
-                        FloatingActionButton(
-                          onPressed: pressButt,
-                        ),
-                        InkWell(
-                          onTap: () {
-                            setWidget(
-                                Container(
-                                  width: 100,
-                                  height: 50,
-                                  color: Colors.white,
-                                  child: const Center(child: Text('Text')),
-                                ),
-                                """Container(
+            child: AnimatedContainer(
+              duration: Duration(milliseconds: 500),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                border: Border(
+                  right: BorderSide(
+                    color: Colors.black, // Adjust the color as needed
+                    width: 2.0, // Adjust the width as needed
+                  ),
+                ),
+              ),
+              width: headerVisible ? 100 : 0,
+              height: screenHeight,
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Column(
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          setWidget(
+                              Container(
+                                width: 100,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    border: Border.all(
+                                        color: Colors.black, width: 1),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(20))),
+                                child: const Center(child: Text('Text')),
+                              ),
+                              """Container(
                               width: 100,
                               height: 50,
                               color: Colors.white,
                               child: const Center(child: Text('Text'))""");
-                          },
-                          child: Container(
-                            width: 100,
-                            height: 50,
-                            color: Colors.white,
-                            child: const Center(child: Text('Text')),
-                          ),
+                        },
+                        child: Container(
+                          width: 100,
+                          height: 50,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(color: Colors.black, width: 1),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(20))),
+                          child: const Center(child: Text('Text')),
                         ),
-                        InkWell(
-                          onTap: () {
-                            setWidget(
-                                Container(
+                      ),
+                      InkWell(
+                        onTap: () {
+                          setWidget(
+                              Container(
+                                width: 100,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    border: Border.all(
+                                        color: Colors.black, width: 1),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(20))),
+                                child: const Center(child: Text('New text')),
+                              ),
+                              """ Container(
                                   width: 100,
                                   height: 50,
-                                  color: Colors.white,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      border: Border.all(
+                                          color: Colors.black, width: 1),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(20))),
                                   child: const Center(child: Text('New text')),
-                                ),
-                                """Container(
-                              width: 100,
-                              height: 50,
+                                )""");
+                        },
+                        child: Container(
+                          width: 100,
+                          height: 50,
+                          decoration: BoxDecoration(
                               color: Colors.white,
-                              child: const Center(child: Text('New text')),
-                            )""");
-                          },
-                          child: Container(
-                            width: 100,
-                            height: 50,
-                            color: Colors.white,
-                            child: const Center(child: Text('New text')),
-                          ),
-                        )
-                      ],
-                    ),
+                              border: Border.all(color: Colors.black, width: 1),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(20))),
+                          child: const Center(child: Text('New text')),
+                        ),
+                      )
+                    ],
                   ),
                 ),
               ),
