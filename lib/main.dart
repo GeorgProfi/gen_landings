@@ -22,18 +22,21 @@ class FigmaToCodeApp extends StatelessWidget {
                 BodySection(
                     Title: "Заголовок 1",
                     innerText: "Текст внутри первого блока",
-                    Width: 375,
-                    Heigth: 300),
+                    Width: 250,
+                    Heigth: 200),
                 BodySection(
-                    Title: "Заголовок 2",
-                    innerText: "Текст внутри второго блока",
-                    Width: 625,
-                    Heigth: 500),
+                  Title: "Заголовок 2",
+                  innerText: "Текст внутри второго блока",
+                  Width: 625,
+                  Heigth: 500,
+                ),
                 BodySection(
-                    Title: "Заголовок 3",
-                    innerText: "Текст внутри третьего блока",
-                    Width: 125,
-                    Heigth: 100),
+                  Title: "Заголовок 3",
+                  innerText: "Текст внутри третьего блока",
+                  Width: 125,
+                  Heigth: 100,
+                  fontSizeTitle: 1,
+                ),
               ]),
         ),
       ),
@@ -42,18 +45,43 @@ class FigmaToCodeApp extends StatelessWidget {
 }
 
 class BodySection extends StatelessWidget {
+  double MaxWidth = 477.33;
+  double MinWidth = 250;
+
+  double MaxHeigth = 392;
+  double MinHeigth = 200;
+
   String Title;
   String innerText;
   double Width;
   double Heigth;
-  double fontSize;
+  double fontSizeTitle;
+  double fontSizeText;
 
   BodySection(
       {this.Title = 'No input title',
       this.innerText = 'No input text',
       this.Width = 477.33,
       this.Heigth = 392,
-      this.fontSize = 9});
+      this.fontSizeTitle = 9.64,
+      this.fontSizeText = 20}) {
+    // Check max and min size
+    if (this.Width > MaxWidth) {
+      this.Width = MaxWidth;
+    }
+
+    if (this.Width < MinWidth) {
+      this.Width = MinWidth;
+    }
+
+    if (this.Heigth > MaxHeigth) {
+      this.Heigth = MaxHeigth;
+    }
+
+    if (this.Heigth < MinHeigth) {
+      this.Heigth = MaxHeigth;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +134,7 @@ class BodySection extends StatelessWidget {
                     'CATEGORY',
                     style: TextStyle(
                       color: Color(0xFF9CA3AF),
-                      fontSize: fontSize,
+                      fontSize: fontSizeTitle,
                       fontFamily: 'Roboto',
                       fontWeight: FontWeight.w500,
                       height: 0.11,
@@ -125,7 +153,7 @@ class BodySection extends StatelessWidget {
                     Title,
                     style: TextStyle(
                       color: Color(0xFF111827),
-                      fontSize: Heigth * 0.045,
+                      fontSize: fontSizeTitle,
                       fontFamily: 'Roboto',
                       fontWeight: FontWeight.w500,
                       height: 0.09,
@@ -143,7 +171,7 @@ class BodySection extends StatelessWidget {
                     innerText,
                     style: TextStyle(
                       color: Color(0xFF4B5563),
-                      fontSize: Heigth * 0.04,
+                      fontSize: fontSizeText,
                       fontFamily: 'Roboto',
                       fontWeight: FontWeight.w400,
                       height: 0.10,
