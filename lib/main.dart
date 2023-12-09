@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gen_landings/code_viewer.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,6 +33,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   Widget? choiceWidget;
+  Widget? visibleWidget;
+  String code = "";
   bool headerVisible = true;
   pressButt() {
     print('press');
@@ -42,9 +45,17 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    setWidget(widgetToAdd) {
+    setWidget(Widget widgetToAdd, String widgetCode) {
       setState(() {
         choiceWidget = widgetToAdd;
+        visibleWidget = widgetToAdd;
+        code = widgetCode;
+      });
+    }
+
+    setViewCode() {
+      setState(() {
+        visibleWidget = CodeViewer(code: code);
       });
     }
 
@@ -77,13 +88,14 @@ class _MyHomePageState extends State<MyHomePage> {
                         ],
                       ),
                     ),
+                    FloatingActionButton(onPressed: setViewCode)
                   ],
                 ),
               ),
               Expanded(
                 child: Container(
                   color: const Color.fromARGB(255, 175, 76, 142),
-                  child: Center(child: choiceWidget),
+                  child: Center(child: visibleWidget),
                 ),
               ),
             ],
@@ -106,12 +118,18 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                         InkWell(
                           onTap: () {
-                            setWidget(Container(
+                            setWidget(
+                                Container(
+                                  width: 100,
+                                  height: 50,
+                                  color: Colors.white,
+                                  child: const Center(child: Text('Text')),
+                                ),
+                                """Container(
                               width: 100,
                               height: 50,
                               color: Colors.white,
-                              child: const Center(child: Text('Text')),
-                            ));
+                              child: const Center(child: Text('Text'))""");
                           },
                           child: Container(
                             width: 100,
@@ -122,12 +140,19 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                         InkWell(
                           onTap: () {
-                            setWidget(Container(
+                            setWidget(
+                                Container(
+                                  width: 100,
+                                  height: 50,
+                                  color: Colors.white,
+                                  child: const Center(child: Text('New text')),
+                                ),
+                                """Container(
                               width: 100,
-                              height: 50, 
+                              height: 50,
                               color: Colors.white,
                               child: const Center(child: Text('New text')),
-                            ));
+                            )""");
                           },
                           child: Container(
                             width: 100,
