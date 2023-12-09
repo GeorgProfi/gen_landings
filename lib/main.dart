@@ -66,21 +66,13 @@ class BodySection extends StatelessWidget {
       this.fontSizeTitle = 9.64,
       this.fontSizeText = 20}) {
     // Check max and min size
-    if (this.Width > MaxWidth) {
-      this.Width = MaxWidth;
-    }
+    this.Width = this.Width > MaxWidth ? MaxWidth : this.Width;
 
-    if (this.Width < MinWidth) {
-      this.Width = MinWidth;
-    }
+    this.Width = this.Width < MinWidth ? MinWidth : this.Width;
 
-    if (this.Heigth > MaxHeigth) {
-      this.Heigth = MaxHeigth;
-    }
+    this.Heigth = this.Heigth > MaxHeigth ? MaxHeigth : this.Heigth;
 
-    if (this.Heigth < MinHeigth) {
-      this.Heigth = MaxHeigth;
-    }
+    this.Heigth = this.Heigth < MinHeigth ? MinHeigth : this.Heigth;
   }
 
   @override
