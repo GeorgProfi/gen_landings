@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gen_landings/code_viewer.dart';
+import 'package:gen_landings/style_choicer.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,6 +25,11 @@ class MyApp extends StatelessWidget {
   }
 }
 
+final elevatedButtonStyle = ElevatedButton.styleFrom(
+  padding: const EdgeInsets.symmetric(
+      horizontal: 20, vertical: 15), // Adjust the padding as needed
+);
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
   final String title;
@@ -35,9 +42,9 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget? choiceWidget;
   Widget? visibleWidget;
   String code = "";
+  bool visibleCode = false;
   bool headerVisible = true;
   pressButt() {
-    print('press');
     setState(() {
       headerVisible = !headerVisible;
     });
@@ -50,15 +57,41 @@ class _MyHomePageState extends State<MyHomePage> {
         choiceWidget = widgetToAdd;
         visibleWidget = widgetToAdd;
         code = widgetCode;
+        visibleCode = false;
       });
+    }
+
+    void copyToClipboard(BuildContext context) {
+      Clipboard.setData(ClipboardData(text: code));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Code copied to clipboard'),
+        ),
+      );
     }
 
     setViewCode() {
       setState(() {
         visibleWidget = CodeViewer(code: code);
+        visibleCode = true;
       });
     }
 
+    setViewWidget() {
+      setState(() {
+        visibleWidget = choiceWidget;
+        visibleCode = false;
+      });
+    }
+
+    changeStyle(String style) {
+      print(style);
+    }
+
+    const styles = [
+      {"name": "SOmeName", "buttonColor": Colors.red},
+      {"name": "SOmeName2", "buttonColor": Color.fromARGB(255, 105, 54, 244)},
+    ];
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Stack(
@@ -77,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         alignment: AlignmentDirectional.topCenter,
                         children: [
                           Padding(
-                            padding: EdgeInsets.all(8),
+                            padding: const EdgeInsets.all(8),
                             child: Visibility(
                               visible: !headerVisible,
                               child: FloatingActionButton(
@@ -88,7 +121,43 @@ class _MyHomePageState extends State<MyHomePage> {
                         ],
                       ),
                     ),
-                    FloatingActionButton(onPressed: setViewCode)
+                    const Spacer(),
+                    Visibility(
+                        visible: !visibleCode,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: ElevatedButton(
+                            onPressed: setViewCode,
+                            style: elevatedButtonStyle,
+                            child: const Text('View Code'),
+                          ),
+                        )),
+                    Visibility(
+                        visible: visibleCode,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: ElevatedButton(
+                            onPressed: () => copyToClipboard(context),
+                            style: elevatedButtonStyle,
+                            child: const Text('Copy to Clipboard'),
+                          ),
+                        )),
+                    Visibility(
+                        visible: visibleCode,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: ElevatedButton(
+                            onPressed: setViewWidget,
+                            style: elevatedButtonStyle,
+                            child: const Text('Preview'),
+                          ),
+                        )),
+                    Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: StyleChoicer(
+                          changeStyleFunction: changeStyle,
+                          styles: styles,
+                        ))
                   ],
                 ),
               ),
