@@ -107,9 +107,11 @@ class _MyHomePageState extends State<MyHomePage> {
                       duration: Duration(milliseconds: 500),
                       width: headerVisible ? 100 : 0,
                     ),
-                    SizedBox(
-                      width: 20,
-                    ),
+                    Visibility(
+                        visible: !headerVisible,
+                        child: SizedBox(
+                          width: 20,
+                        )),
                     IconButton(
                       icon: Icon(headerVisible ? Icons.arrow_back : Icons.menu),
                       onPressed: pressButt,
@@ -151,16 +153,25 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: StyleChoicer(
                           changeStyleFunction: changeStyle,
                           styles: styles,
-                        ))
+                        )),
                   ],
                 ),
               ),
-              Expanded(
-                child: Container(
-                  color: Colors.white,
-                  child: Center(child: visibleWidget),
-                ),
-              ),
+              Row(
+                children: [
+                  AnimatedContainer(
+                    duration: Duration(milliseconds: 500),
+                    width: headerVisible ? 100 : 0,
+                    height: 10,
+                  ),
+                  Expanded(
+                    child: Container(
+                      color: Colors.white,
+                      child: Center(child: visibleWidget),
+                    ),
+                  ),
+                ],
+              )
             ],
           ),
           Positioned(
