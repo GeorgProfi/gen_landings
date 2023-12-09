@@ -20,11 +20,20 @@ class FigmaToCodeApp extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 BodySection(
-                    "Заголовок 1", "Текст внутри первого блока", 375, 300),
+                    Title: "Заголовок 1",
+                    innerText: "Текст внутри первого блока",
+                    Width: 375,
+                    Heigth: 300),
                 BodySection(
-                    "Заголовок 2", "Текст внутри второго блока", 625, 500),
+                    Title: "Заголовок 2",
+                    innerText: "Текст внутри второго блока",
+                    Width: 625,
+                    Heigth: 500),
                 BodySection(
-                    "Заголовок 3", "Текст внутри третьего блока", 125, 100),
+                    Title: "Заголовок 3",
+                    innerText: "Текст внутри третьего блока",
+                    Width: 125,
+                    Heigth: 100),
               ]),
         ),
       ),
@@ -33,15 +42,18 @@ class FigmaToCodeApp extends StatelessWidget {
 }
 
 class BodySection extends StatelessWidget {
-  String Title = 'No input title';
-  String innerText = 'No input text';
-  double Width = 477.33;
-  double Heigth = 392;
+  String Title;
+  String innerText;
+  double Width;
+  double Heigth;
   double fontSize;
 
-  BodySection(this.Title, this.innerText, this.Width, this.Heigth,
-      {double fontSizeEx = 9})
-      : fontSize = fontSizeEx;
+  BodySection(
+      {this.Title = 'No input title',
+      this.innerText = 'No input text',
+      this.Width = 477.33,
+      this.Heigth = 392,
+      this.fontSize = 9});
 
   @override
   Widget build(BuildContext context) {
