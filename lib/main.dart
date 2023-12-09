@@ -20,7 +20,7 @@ class FigmaToCodeApp extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 BodySection(
-                    "Заголовок 1", "Текст внутри первого блока", 500, 400),
+                    "Заголовок 1", "Текст внутри первого блока", 375, 300),
                 BodySection(
                     "Заголовок 2", "Текст внутри второго блока", 625, 500),
                 BodySection(
@@ -37,18 +37,11 @@ class BodySection extends StatelessWidget {
   String innerText = 'No input text';
   double Width = 477.33;
   double Heigth = 392;
+  double fontSize;
 
-  BodySection(
-    String TitleEx,
-    String innerTextExmepl,
-    double WidthEx,
-    double heigthEx,
-  ) {
-    Title = TitleEx;
-    innerText = innerTextExmepl;
-    Width = WidthEx;
-    Heigth = heigthEx;
-  }
+  BodySection(this.Title, this.innerText, this.Width, this.Heigth,
+      {double fontSizeEx = 9})
+      : fontSize = fontSizeEx;
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +94,7 @@ class BodySection extends StatelessWidget {
                     'CATEGORY',
                     style: TextStyle(
                       color: Color(0xFF9CA3AF),
-                      fontSize: Heigth * 0.03,
+                      fontSize: fontSize,
                       fontFamily: 'Roboto',
                       fontWeight: FontWeight.w500,
                       height: 0.11,
