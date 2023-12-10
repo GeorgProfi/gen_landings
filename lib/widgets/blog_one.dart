@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class BodySection extends StatelessWidget {
@@ -178,32 +177,30 @@ class BodySection extends StatelessWidget {
 class Blog_one extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        padding: EdgeInsets.all(16.0),
-        child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              BodySection(
-                  Title: "Заголовок 1",
-                  innerText: "Текст внутри первого блока",
-                  Width: 250,
-                  Heigth: 200),
-              BodySection(
-                Title: "Заголовок 2",
-                innerText: "Текст внутри второго блока",
-                Width: 625,
-                Heigth: 500,
-              ),
-              BodySection(
-                Title: "Заголовок 3",
-                innerText: "Текст внутри третьего блока",
-                Width: 125,
-                Heigth: 100,
-                fontSizeTitle: 1,
-              ),
-            ]),
-      ),
+    return Container(
+      padding: EdgeInsets.all(16.0),
+      child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            BodySection(
+                Title: "Заголовок 1",
+                innerText: "Текст внутри первого блока",
+                Width: 250,
+                Heigth: 200),
+            BodySection(
+              Title: "Заголовок 2",
+              innerText: "Текст внутри второго блока",
+              Width: 625,
+              Heigth: 500,
+            ),
+            BodySection(
+              Title: "Заголовок 3",
+              innerText: "Текст внутри третьего блока",
+              Width: 125,
+              Heigth: 100,
+              fontSizeTitle: 1,
+            ),
+          ]),
     );
   }
 }

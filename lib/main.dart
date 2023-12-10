@@ -197,7 +197,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     children: [
                       InkWell(
                         onTap: () {
-                          setWidget(BodySection(), """  BodySection()""");
+                          setWidget(Blog_one(), """  BodySection()""");
                         },
                         child: BodySection(),
                       )
