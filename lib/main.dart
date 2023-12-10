@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gen_landings/code_viewer.dart';
 import 'package:gen_landings/style_choicer.dart';
 import 'package:flutter/services.dart';
-import 'widgets/blog_one.dart';
+import 'package:gen_landings/widgets/blog_one.dart';
 
 void main() {
   runApp(const MyApp());
@@ -104,23 +104,19 @@ class _MyHomePageState extends State<MyHomePage> {
                 height: 100,
                 child: Row(
                   children: [
-                    SizedBox(
-                      width: 100,
-                      height: 100,
-                      child: Stack(
-                        alignment: AlignmentDirectional.topCenter,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8),
-                            child: Visibility(
-                              visible: !headerVisible,
-                              child: FloatingActionButton(
-                                onPressed: pressButt,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                    AnimatedContainer(
+                      duration: Duration(milliseconds: 500),
+                      width: headerVisible ? 100 : 0,
+                    ),
+                    Visibility(
+                        visible: !headerVisible,
+                        child: SizedBox(
+                          width: 20,
+                        )),
+                    IconButton(
+                      icon: Icon(headerVisible ? Icons.arrow_back : Icons.menu),
+                      onPressed: pressButt,
+                      color: Colors.white,
                     ),
                     const Spacer(),
                     Visibility(
@@ -158,81 +154,54 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: StyleChoicer(
                           changeStyleFunction: changeStyle,
                           styles: styles,
-                        ))
+                        )),
                   ],
                 ),
               ),
-              Expanded(
-                child: Container(
-                  color: const Color.fromARGB(255, 175, 76, 142),
-                  child: Center(child: visibleWidget),
-                ),
-              ),
+              Row(
+                children: [
+                  AnimatedContainer(
+                    duration: Duration(milliseconds: 500),
+                    width: headerVisible ? 100 : 0,
+                    height: 10,
+                  ),
+                  Expanded(
+                    child: Container(
+                      color: Colors.white,
+                      child: Center(child: visibleWidget),
+                    ),
+                  ),
+                ],
+              )
             ],
           ),
           Positioned(
             left: 0,
-            child: Visibility(
-              visible: headerVisible,
-              child: Container(
-                color: Colors.blue,
-                width: 100,
-                height: screenHeight,
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: Column(
-                      children: [
-                        FloatingActionButton(
-                          onPressed: pressButt,
-                        ),
-                        InkWell(
-                          onTap: () {
-                            setWidget(
-                                Container(
-                                  width: 100,
-                                  height: 50,
-                                  color: Colors.white,
-                                  child: Center(child: Blog_one()),
-                                ),
-                                """Container(
-                              width: 100,
-                              height: 50,
-                              color: Colors.white,
-                              child: const Center(child: Text('Text'))""");
-                          },
-                          child: Container(
-                            width: 100,
-                            height: 50,
-                            color: Colors.white,
-                            child: const Center(child: Text('Text')),
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            setWidget(
-                                Container(
-                                  width: 100,
-                                  height: 50,
-                                  color: Colors.white,
-                                  child: const Center(child: Text('New text')),
-                                ),
-                                """Container(
-                              width: 100,
-                              height: 50,
-                              color: Colors.white,
-                              child: const Center(child: Text('New text')),
-                            )""");
-                          },
-                          child: Container(
-                            width: 100,
-                            height: 50,
-                            color: Colors.white,
-                            child: const Center(child: Text('New text')),
-                          ),
-                        )
-                      ],
-                    ),
+            child: AnimatedContainer(
+              duration: Duration(milliseconds: 500),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                border: Border(
+                  right: BorderSide(
+                    color: Colors.black, // Adjust the color as needed
+                    width: 2.0, // Adjust the width as needed
+                  ),
+                ),
+              ),
+              width: headerVisible ? 100 : 0,
+              height: screenHeight,
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Column(
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          setWidget(BodySection(), """  BodySection()""");
+                        },
+                        child: BodySection(),
+                      )
+                    ],
                   ),
                 ),
               ),
