@@ -199,7 +199,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         onTap: () {
                           setWidget(Blog_one(), """  BodySection()""");
                         },
-                        child: MiniWidget(),
+                        child: MiniWidgetBlogOne(),
                       )
                     ],
                   ),

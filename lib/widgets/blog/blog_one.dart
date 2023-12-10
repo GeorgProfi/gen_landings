@@ -174,13 +174,6 @@ class BodySection extends StatelessWidget {
   }
 }
 
-class MiniWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Image(image: AssetImage('blog/blog_one_btn.png'));
-  }
-}
-
 class Blog_one extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -208,6 +201,113 @@ class Blog_one extends StatelessWidget {
               fontSizeTitle: 1,
             ),
           ]),
+    );
+  }
+}
+
+class MiniWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Image(image: AssetImage('blog/blog_one_btn.png'));
+  }
+}
+
+class MiniWidgetBlogOne extends StatelessWidget {
+  double hBlock2lvl = 50;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          color: Color.fromARGB(255, 100, 100, 240),
+          height: 100,
+          width: 170,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                color: Color.fromARGB(255, 180, 180, 184),
+                height: hBlock2lvl,
+                width: hBlock2lvl,
+                child: Column(children: [
+                  Container(
+                    height: 20,
+                    width: 50,
+                    color: Colors.white,
+                    alignment: Alignment.topCenter,
+                    child: const Text("Image"),
+                  ),
+                  Container(
+                      alignment: Alignment.centerLeft,
+                      margin: const EdgeInsets.only(top: 5),
+                      height: 5,
+                      width: 25,
+                      color: Colors.white),
+                  Container(
+                      alignment: Alignment.centerLeft,
+                      margin: const EdgeInsets.only(top: 5),
+                      height: 5,
+                      width: 25,
+                      color: Color.fromARGB(255, 100, 100, 240))
+                ]),
+              ),
+              Container(
+                color: Color.fromARGB(255, 180, 180, 184),
+                height: hBlock2lvl,
+                width: hBlock2lvl,
+                child: Column(children: [
+                  Container(
+                    height: 20,
+                    width: 50,
+                    color: Colors.white,
+                    alignment: Alignment.topCenter,
+                    child: const Text("Image"),
+                  ),
+                  Container(
+                      alignment: Alignment.centerLeft,
+                      margin: const EdgeInsets.only(top: 5),
+                      height: 5,
+                      width: 25,
+                      color: Colors.white),
+                  Container(
+                      alignment: Alignment.centerLeft,
+                      margin: const EdgeInsets.only(top: 5),
+                      height: 5,
+                      width: 25,
+                      color: Color.fromARGB(255, 100, 100, 240))
+                ]),
+              ),
+              Container(
+                color: Color.fromARGB(255, 180, 180, 184),
+                height: hBlock2lvl,
+                width: hBlock2lvl,
+                child: Column(children: [
+                  Container(
+                    height: 20,
+                    width: 50,
+                    color: Colors.white,
+                    alignment: Alignment.topCenter,
+                    child: const Text("Image"),
+                  ),
+                  Container(
+                      alignment: Alignment.centerLeft,
+                      margin: const EdgeInsets.only(top: 5),
+                      height: 5,
+                      width: 25,
+                      color: Colors.white),
+                  Container(
+                      alignment: Alignment.centerLeft,
+                      margin: const EdgeInsets.only(top: 5),
+                      height: 5,
+                      width: 25,
+                      color: Color.fromARGB(255, 100, 100, 240))
+                ]),
+              ),
+            ],
+          ),
+        )
+      ],
     );
   }
 }
