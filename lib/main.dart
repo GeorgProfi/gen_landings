@@ -172,30 +172,39 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           Positioned(
             left: 0,
-            child: Visibility(
-              visible: headerVisible,
-              child: Container(
-                color: Colors.blue,
-                width: 100,
-                height: screenHeight,
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: Column(
-                      children: [
-                        FloatingActionButton(
-                          onPressed: pressButt,
-                        ),
-                        InkWell(
-                          onTap: () {
-                            setWidget(
-                                Container(
-                                  width: 100,
-                                  height: 50,
-                                  color: Colors.white,
-                                  child: Center(child: Blog_one()),
-                                ),
-                                """Container(
+            child: AnimatedContainer(
+              duration: Duration(milliseconds: 500),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                border: Border(
+                  right: BorderSide(
+                    color: Colors.black, // Adjust the color as needed
+                    width: 2.0, // Adjust the width as needed
+                  ),
+                ),
+              ),
+              width: headerVisible ? 100 : 0,
+              height: screenHeight,
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Column(
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          setWidget(
+                              Container(
+                                width: 100,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    border: Border.all(
+                                        color: Colors.black, width: 1),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(20))),
+                                child: Center(child: Blog_one()),
+                              ),
+                              """Container(
                               width: 100,
                               height: 50,
                               color: Colors.white,
