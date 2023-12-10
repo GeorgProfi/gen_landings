@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gen_landings/code_viewer.dart';
 import 'package:gen_landings/style_choicer.dart';
 import 'package:flutter/services.dart';
+import 'widgets/blog_one.dart';
 
 void main() {
   runApp(const MyApp());
@@ -192,7 +193,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   width: 100,
                                   height: 50,
                                   color: Colors.white,
-                                  child: const Center(child: Text('Text')),
+                                  child: Center(child: Blog_one()),
                                 ),
                                 """Container(
                               width: 100,
