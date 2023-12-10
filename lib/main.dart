@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gen_landings/code_viewer.dart';
 import 'package:gen_landings/style_choicer.dart';
 import 'package:flutter/services.dart';
-import 'package:gen_landings/widgets/blog_one.dart';
+import 'package:gen_landings/widgets/blog/blog_one.dart';
 
 void main() {
   runApp(const MyApp());
@@ -188,7 +188,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
-              width: headerVisible ? 100 : 0,
+              width: headerVisible ? 200 : 0,
               height: screenHeight,
               child: SingleChildScrollView(
                 child: Padding(
@@ -199,7 +199,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         onTap: () {
                           setWidget(Blog_one(), """  BodySection()""");
                         },
-                        child: BodySection(),
+                        child: MiniWidget(),
                       )
                     ],
                   ),
