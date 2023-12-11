@@ -25,20 +25,12 @@ class CodeViewer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          SingleChildScrollView(
-              child: HighlightView(
-            code,
-            language: 'dart',
-            theme: monokaiSublimeTheme,
-            padding: const EdgeInsets.all(12),
-            textStyle: const TextStyle(fontSize: 14),
-          )),
-        ],
-      ),
+    return HighlightView(
+      code,
+      language: 'dart',
+      theme: monokaiSublimeTheme,
+      padding: const EdgeInsets.all(12),
+      textStyle: const TextStyle(fontSize: 14),
     );
   }
 }

@@ -14,14 +14,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Generation Landings',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color.fromARGB(255, 80, 68, 255)),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'Generation Landings'),
+      home: MyHomePage(title: 'Generation Landings'),
     );
   }
 }
@@ -47,6 +42,11 @@ class _MyHomePageState extends State<MyHomePage> {
   bool headerVisible = true;
   bool animateStart = false;
   Color topHeaderColor = const Color.fromARGB(255, 85, 21, 21);
+  List<BlogOne> columnOfWidget = [
+    BlogOne(
+      pageTitle: "hey ho",
+    )
+  ];
   pressButt() {
     setState(() {
       headerVisible = !headerVisible;
@@ -171,11 +171,15 @@ class _MyHomePageState extends State<MyHomePage> {
                     height: 10,
                   ),
                   Expanded(
-                    child: Container(
-                      color: Colors.white,
-                      child: Center(child: visibleWidget),
-                    ),
-                  ),
+                      child: Container(
+                          height: 700,
+                          child: visibleCode
+                              ? SingleChildScrollView(
+                                  child: Column(
+                                    children: [visibleWidget ?? Container()],
+                                  ),
+                                )
+                              : visibleWidget)),
                 ],
               )
             ],
@@ -209,12 +213,13 @@ class _MyHomePageState extends State<MyHomePage> {
                         children: [
                           InkWell(
                             onTap: () {
-                              setWidget(const BlogOne(), """  BodySection()""");
+                              setWidget(
+                                  columnOfWidget[0], columnOfWidget[0].code);
                             },
                             child: MiniWidgetBlogOne(
                               mainColor: topHeaderColor,
                             ),
-                          )
+                          ),
                         ],
                       )),
                 ),
