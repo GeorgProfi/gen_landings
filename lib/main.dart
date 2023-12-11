@@ -35,8 +35,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Widget? choiceWidget;
-  Widget? visibleWidget;
+  Widget choiceWidget = Container();
+  Widget visibleWidget = Container();
   String code = "";
   bool visibleCode = false;
   bool headerVisible = true;
@@ -170,17 +170,33 @@ class _MyHomePageState extends State<MyHomePage> {
                     width: headerVisible ? 200 : 0,
                     height: 10,
                   ),
-                  Expanded(
-                      child: Container(
-                          height: 700,
-                          child: visibleCode
-                              ? SingleChildScrollView(
-                                  child: Column(
-                                    children: [visibleWidget ?? Container()],
-                                  ),
-                                )
-                              : visibleWidget)),
+                  Expanded(child: Container()),
                 ],
+              ),
+              Expanded(
+                child: Row(
+                  children: [
+                    AnimatedContainer(
+                      duration: const Duration(milliseconds: 500),
+                      width: headerVisible ? 210 : 10,
+                      height: 10,
+                    ),
+                    Expanded(
+                        child: Container(
+                      child: visibleCode
+                          ? SingleChildScrollView(
+                              child: visibleWidget,
+                            )
+                          : visibleWidget,
+                    )),
+                    SizedBox(
+                      width: 10,
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                height: 10,
               )
             ],
           ),
