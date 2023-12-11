@@ -3,7 +3,7 @@ import 'package:gen_landings/style_button.dart';
 
 class StyleChoicer extends StatelessWidget {
   final List<dynamic> styles;
-  final Function(String) changeStyleFunction;
+  final Function(Color) changeStyleFunction;
 
   const StyleChoicer(
       {Key? key, required this.styles, required this.changeStyleFunction})
