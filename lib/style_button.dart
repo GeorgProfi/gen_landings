@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class RoundButton extends StatelessWidget {
-  final Function(String) onTap;
+  final Function(Color) onTap;
   final dynamic style;
 
   const RoundButton({super.key, required this.onTap, required this.style});
@@ -10,7 +10,7 @@ class RoundButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        onTap(style["name"]);
+        onTap(style["buttonColor"]);
       },
       child: Container(
         width: 25.0, // Adjust the size as needed

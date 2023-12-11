@@ -45,6 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String code = "";
   bool visibleCode = false;
   bool headerVisible = true;
+  Color topHeaderColor = Color.fromARGB(255, 85, 21, 21);
   pressButt() {
     setState(() {
       headerVisible = !headerVisible;
@@ -85,8 +86,10 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     }
 
-    changeStyle(String style) {
-      print(style);
+    changeStyle(Color color) {
+      setState(() {
+        topHeaderColor = color;
+      });
     }
 
     const styles = [
@@ -100,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Column(
             children: [
               Container(
-                color: const Color.fromARGB(255, 85, 21, 21),
+                color: topHeaderColor,
                 height: 100,
                 child: Row(
                   children: [
