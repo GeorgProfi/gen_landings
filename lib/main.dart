@@ -45,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String code = "";
   bool visibleCode = false;
   bool headerVisible = true;
-  Color topHeaderColor = Color.fromARGB(255, 85, 21, 21);
+  Color topHeaderColor = const Color.fromARGB(255, 85, 21, 21);
   pressButt() {
     setState(() {
       headerVisible = !headerVisible;
@@ -108,12 +108,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Row(
                   children: [
                     AnimatedContainer(
-                      duration: Duration(milliseconds: 500),
+                      duration: const Duration(milliseconds: 500),
                       width: headerVisible ? 100 : 0,
                     ),
                     Visibility(
                         visible: !headerVisible,
-                        child: SizedBox(
+                        child: const SizedBox(
                           width: 20,
                         )),
                     IconButton(
@@ -164,7 +164,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Row(
                 children: [
                   AnimatedContainer(
-                    duration: Duration(milliseconds: 500),
+                    duration: const Duration(milliseconds: 500),
                     width: headerVisible ? 100 : 0,
                     height: 10,
                   ),
@@ -181,7 +181,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Positioned(
             left: 0,
             child: AnimatedContainer(
-              duration: Duration(milliseconds: 500),
+              duration: const Duration(milliseconds: 500),
               decoration: const BoxDecoration(
                 color: Colors.white,
                 border: Border(
@@ -200,9 +200,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     children: [
                       InkWell(
                         onTap: () {
-                          setWidget(Blog_one(), """  BodySection()""");
+                          setWidget(const BlogOne(), """  BodySection()""");
                         },
-                        child: MiniWidgetBlogOne(),
+                        child: MiniWidgetBlogOne(
+                          mainColor: topHeaderColor,
+                        ),
                       )
                     ],
                   ),

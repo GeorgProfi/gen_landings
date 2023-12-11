@@ -1,34 +1,35 @@
 import 'package:flutter/material.dart';
 
 class BodySection extends StatelessWidget {
-  double MaxWidth = 477.33;
-  double MinWidth = 250;
+  double maxWidth = 477.33;
+  double minWidth = 250;
 
-  double MaxHeigth = 392;
-  double MinHeigth = 200;
+  double maxHeight = 392;
+  double minHeight = 200;
 
-  String Title;
+  String title;
   String innerText;
-  double Width;
-  double Heigth;
+  double widgetWidth;
+  double widgetHeight;
   double fontSizeTitle;
   double fontSizeText;
 
   BodySection(
-      {this.Title = 'No input title',
+      {super.key,
+      this.title = 'No input title',
       this.innerText = 'No input text',
-      this.Width = 477.33,
-      this.Heigth = 392,
+      this.widgetWidth = 477.33,
+      this.widgetHeight = 392,
       this.fontSizeTitle = 9.64,
       this.fontSizeText = 20}) {
     // Check max and min size
-    this.Width = this.Width > MaxWidth ? MaxWidth : this.Width;
+    widgetWidth = widgetWidth > maxWidth ? maxWidth : widgetWidth;
 
-    this.Width = this.Width < MinWidth ? MinWidth : this.Width;
+    widgetWidth = widgetWidth < minWidth ? minWidth : widgetWidth;
 
-    this.Heigth = this.Heigth > MaxHeigth ? MaxHeigth : this.Heigth;
+    widgetHeight = widgetHeight > maxHeight ? maxHeight : widgetHeight;
 
-    this.Heigth = this.Heigth < MinHeigth ? MinHeigth : this.Heigth;
+    widgetHeight = widgetHeight < minHeight ? minHeight : widgetHeight;
   }
 
   @override
@@ -36,12 +37,12 @@ class BodySection extends StatelessWidget {
     return Column(
       children: [
         Container(
-          width: Width,
-          height: Heigth,
+          width: widgetWidth,
+          height: widgetHeight,
           clipBehavior: Clip.antiAlias,
           decoration: ShapeDecoration(
             shape: RoundedRectangleBorder(
-              side: BorderSide(width: 2, color: Color(0x99E5E7EB)),
+              side: const BorderSide(width: 2, color: Color(0x99E5E7EB)),
               borderRadius: BorderRadius.circular(8),
             ),
           ),
@@ -51,22 +52,21 @@ class BodySection extends StatelessWidget {
                 left: 0,
                 top: 0,
                 child: Container(
-                  width: Width,
-                  height: Heigth,
-                  decoration: BoxDecoration(color: Colors.white),
+                  width: widgetWidth,
+                  height: widgetHeight,
+                  decoration: const BoxDecoration(color: Colors.white),
                 ),
               ),
               Positioned(
                 left: 2,
                 top: 2,
                 child: Container(
-                  width: Width,
-                  height: Heigth * 0.4897,
+                  width: widgetWidth,
+                  height: widgetHeight * 0.4897,
                   clipBehavior: Clip.antiAlias,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image:
-                          Image.asset('img/400x200.jpg').image as ImageProvider,
+                      image: Image.asset('img/400x200.jpg').image,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -74,14 +74,14 @@ class BodySection extends StatelessWidget {
               ),
               Positioned(
                 left: 26,
-                top: Heigth * 0.556,
+                top: widgetHeight * 0.556,
                 child: SizedBox(
-                  width: Width * 0.155,
-                  height: Heigth * 0.04,
+                  width: widgetWidth * 0.155,
+                  height: widgetHeight * 0.04,
                   child: Text(
                     'CATEGORY',
                     style: TextStyle(
-                      color: Color(0xFF9CA3AF),
+                      color: const Color(0xFF9CA3AF),
                       fontSize: fontSizeTitle,
                       fontFamily: 'Roboto',
                       fontWeight: FontWeight.w500,
@@ -93,14 +93,14 @@ class BodySection extends StatelessWidget {
               ),
               Positioned(
                 left: 26,
-                top: Heigth * 0.607,
+                top: widgetHeight * 0.607,
                 child: SizedBox(
-                  width: Width * 0.232,
+                  width: widgetWidth * 0.232,
                   height: 28,
                   child: Text(
-                    Title,
+                    title,
                     style: TextStyle(
-                      color: Color(0xFF111827),
+                      color: const Color(0xFF111827),
                       fontSize: fontSizeTitle,
                       fontFamily: 'Roboto',
                       fontWeight: FontWeight.w500,
@@ -111,14 +111,14 @@ class BodySection extends StatelessWidget {
               ),
               Positioned(
                 left: 26,
-                top: Heigth * 0.721,
+                top: widgetHeight * 0.721,
                 child: SizedBox(
                   width: 387.50,
                   height: 42,
                   child: Text(
                     innerText,
                     style: TextStyle(
-                      color: Color(0xFF4B5563),
+                      color: const Color(0xFF4B5563),
                       fontSize: fontSizeText,
                       fontFamily: 'Roboto',
                       fontWeight: FontWeight.w400,
@@ -129,15 +129,15 @@ class BodySection extends StatelessWidget {
               ),
               Positioned(
                 left: 26,
-                top: Heigth * 0.872,
+                top: widgetHeight * 0.872,
                 child: SizedBox(
-                  width: Width * 0.175,
+                  width: widgetWidth * 0.175,
                   height: 24,
                   child: Text(
                     'Learn More',
                     style: TextStyle(
-                      color: Color(0xFF6366F1),
-                      fontSize: Heigth * 0.04,
+                      color: const Color(0xFF6366F1),
+                      fontSize: widgetHeight * 0.04,
                       fontFamily: 'Roboto',
                       fontWeight: FontWeight.w400,
                       height: 0.09,
@@ -147,23 +147,23 @@ class BodySection extends StatelessWidget {
               ),
               Positioned(
                 left: 115.36,
-                top: Heigth * 0.882,
+                top: widgetHeight * 0.882,
                 child: Container(
                   width: 16,
                   height: 16,
                   clipBehavior: Clip.antiAlias,
-                  decoration: BoxDecoration(),
-                  child: Stack(children: []),
+                  decoration: const BoxDecoration(),
+                  child: const Stack(children: []),
                 ),
               ),
               Positioned(
                 left: 423.53,
-                top: Heigth * 0.882,
+                top: widgetHeight * 0.882,
                 child: Container(
                   width: 16,
                   height: 16,
                   clipBehavior: Clip.antiAlias,
-                  decoration: BoxDecoration(),
+                  decoration: const BoxDecoration(),
                 ),
               ),
             ],
@@ -174,30 +174,32 @@ class BodySection extends StatelessWidget {
   }
 }
 
-class Blog_one extends StatelessWidget {
+class BlogOne extends StatelessWidget {
+  const BlogOne({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(16.0),
       child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             BodySection(
-                Title: "Заголовок 1",
+                title: "Заголовок 1",
                 innerText: "Текст внутри первого блока",
-                Width: 250,
-                Heigth: 200),
+                widgetWidth: 250,
+                widgetHeight: 200),
             BodySection(
-              Title: "Заголовок 2",
+              title: "Заголовок 2",
               innerText: "Текст внутри второго блока",
-              Width: 625,
-              Heigth: 500,
+              widgetWidth: 625,
+              widgetHeight: 500,
             ),
             BodySection(
-              Title: "Заголовок 3",
+              title: "Заголовок 3",
               innerText: "Текст внутри третьего блока",
-              Width: 125,
-              Heigth: 100,
+              widgetWidth: 125,
+              widgetHeight: 100,
               fontSizeTitle: 1,
             ),
           ]),
@@ -206,28 +208,32 @@ class Blog_one extends StatelessWidget {
 }
 
 class MiniWidget extends StatelessWidget {
+  const MiniWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Image(image: AssetImage('blog/blog_one_btn.png'));
+    return const Image(image: AssetImage('blog/blog_oneOtn.png'));
   }
 }
 
 class MiniWidgetBlogOne extends StatelessWidget {
   double hBlock2lvl = 50;
+  Color mainColor;
+  MiniWidgetBlogOne({Key? key, required this.mainColor}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Container(
-          color: Color.fromARGB(255, 100, 100, 240),
+          color: mainColor,
           height: 100,
           width: 170,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Container(
-                color: Color.fromARGB(255, 180, 180, 184),
+                color: const Color.fromARGB(255, 180, 180, 184),
                 height: hBlock2lvl,
                 width: hBlock2lvl,
                 child: Column(children: [
@@ -249,11 +255,11 @@ class MiniWidgetBlogOne extends StatelessWidget {
                       margin: const EdgeInsets.only(top: 5),
                       height: 5,
                       width: 25,
-                      color: Color.fromARGB(255, 100, 100, 240))
+                      color: mainColor)
                 ]),
               ),
               Container(
-                color: Color.fromARGB(255, 180, 180, 184),
+                color: const Color.fromARGB(255, 180, 180, 184),
                 height: hBlock2lvl,
                 width: hBlock2lvl,
                 child: Column(children: [
@@ -275,11 +281,11 @@ class MiniWidgetBlogOne extends StatelessWidget {
                       margin: const EdgeInsets.only(top: 5),
                       height: 5,
                       width: 25,
-                      color: Color.fromARGB(255, 100, 100, 240))
+                      color: mainColor)
                 ]),
               ),
               Container(
-                color: Color.fromARGB(255, 180, 180, 184),
+                color: const Color.fromARGB(255, 180, 180, 184),
                 height: hBlock2lvl,
                 width: hBlock2lvl,
                 child: Column(children: [
@@ -301,7 +307,7 @@ class MiniWidgetBlogOne extends StatelessWidget {
                       margin: const EdgeInsets.only(top: 5),
                       height: 5,
                       width: 25,
-                      color: Color.fromARGB(255, 100, 100, 240))
+                      color: mainColor)
                 ]),
               ),
             ],
