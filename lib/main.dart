@@ -45,10 +45,12 @@ class _MyHomePageState extends State<MyHomePage> {
   String code = "";
   bool visibleCode = false;
   bool headerVisible = true;
+  bool animateStart = false;
   Color topHeaderColor = const Color.fromARGB(255, 85, 21, 21);
   pressButt() {
     setState(() {
       headerVisible = !headerVisible;
+      animateStart = true;
     });
   }
 
@@ -109,7 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     AnimatedContainer(
                       duration: const Duration(milliseconds: 500),
-                      width: headerVisible ? 100 : 0,
+                      width: headerVisible ? 200 : 0,
                     ),
                     Visibility(
                         visible: !headerVisible,
@@ -165,7 +167,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: [
                   AnimatedContainer(
                     duration: const Duration(milliseconds: 500),
-                    width: headerVisible ? 100 : 0,
+                    width: headerVisible ? 200 : 0,
                     height: 10,
                   ),
                   Expanded(
@@ -182,6 +184,11 @@ class _MyHomePageState extends State<MyHomePage> {
             left: 0,
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 500),
+              onEnd: () {
+                setState(() {
+                  animateStart = false;
+                });
+              },
               decoration: const BoxDecoration(
                 color: Colors.white,
                 border: Border(
@@ -196,18 +203,20 @@ class _MyHomePageState extends State<MyHomePage> {
               child: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.all(8),
-                  child: Column(
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          setWidget(const BlogOne(), """  BodySection()""");
-                        },
-                        child: MiniWidgetBlogOne(
-                          mainColor: topHeaderColor,
-                        ),
-                      )
-                    ],
-                  ),
+                  child: Visibility(
+                      visible: headerVisible && !animateStart,
+                      child: Column(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              setWidget(const BlogOne(), """  BodySection()""");
+                            },
+                            child: MiniWidgetBlogOne(
+                              mainColor: topHeaderColor,
+                            ),
+                          )
+                        ],
+                      )),
                 ),
               ),
             ),
