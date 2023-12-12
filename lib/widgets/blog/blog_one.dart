@@ -66,7 +66,7 @@ class BodySection extends StatelessWidget {
                   clipBehavior: Clip.antiAlias,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: Image.asset('img/400x200.jpg').image,
+                      image: Image.asset('blog/maxi.jpg').image,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -487,7 +487,7 @@ class MiniWidgetBlogOne extends StatelessWidget {
                     width: 50,
                     color: Colors.white,
                     alignment: Alignment.topCenter,
-                    child: const Text("Image"),
+                    child: const Image(image: AssetImage('blog/mini.png')),
                   ),
                   Container(
                       alignment: Alignment.centerLeft,
@@ -513,7 +513,7 @@ class MiniWidgetBlogOne extends StatelessWidget {
                     width: 50,
                     color: Colors.white,
                     alignment: Alignment.topCenter,
-                    child: const Text("Image"),
+                    child: const Image(image: AssetImage('blog/mini.png')),
                   ),
                   Container(
                       alignment: Alignment.centerLeft,
@@ -539,7 +539,7 @@ class MiniWidgetBlogOne extends StatelessWidget {
                     width: 50,
                     color: Colors.white,
                     alignment: Alignment.topCenter,
-                    child: const Text("Image"),
+                    child: const Image(image: AssetImage('blog/mini.png')),
                   ),
                   Container(
                       alignment: Alignment.centerLeft,
