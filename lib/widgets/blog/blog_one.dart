@@ -177,7 +177,7 @@ class BodySection extends StatelessWidget {
 class BlogOne extends StatefulWidget {
   BlogOne({Key? key, required this.pageTitle}) : super(key: key);
 
-  final String pageTitle;
+  String pageTitle;
   String code = "";
   @override
   State<BlogOne> createState() => _BlogOneState();
@@ -204,8 +204,10 @@ class _BlogOneState extends State<BlogOne> {
       fontSizeTitle: 1,
     ),
   ];
+
   @override
   Widget build(BuildContext context) {
+    widget.code = "some";
     setState(() {
       widget.code = """
 import 'package:flutter/material.dart';

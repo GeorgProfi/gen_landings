@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:gen_landings/code_viewer.dart';
 import 'package:gen_landings/style_choicer.dart';
-import 'package:flutter/services.dart';
 import 'package:gen_landings/widgets/blog/blog_one.dart';
+
+enum ThemeEvent { toggle }
+
+enum ThemeType { light, dark }
+
+// Состояния для BLoC
+class ThemeState {
+  final bool isDark;
+
+  ThemeState({required this.isDark});
+}
 
 void main() {
   runApp(const MyApp());
@@ -14,9 +23,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Generation Landings',
-      home: MyHomePage(title: 'Generation Landings'),
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
+      home: MyHomePage(title: "some"),
     );
   }
 }
@@ -35,6 +46,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  ThemeType _currentTheme = ThemeType.light;
+
+  void _toggleTheme() {
+    setState(() {
+      _currentTheme =
+          _currentTheme == ThemeType.light ? ThemeType.dark : ThemeType.light;
+    });
+  }
+
   Widget choiceWidget = Container();
   Widget visibleWidget = Container();
   String code = "";
@@ -54,6 +74,10 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void DownLoad() {
+    print('Скачано');
+  }
+
   @override
   Widget build(BuildContext context) {
     setWidget(Widget widgetToAdd, String widgetCode) {
@@ -62,22 +86,6 @@ class _MyHomePageState extends State<MyHomePage> {
         visibleWidget = widgetToAdd;
         code = widgetCode;
         visibleCode = false;
-      });
-    }
-
-    void copyToClipboard(BuildContext context) {
-      Clipboard.setData(ClipboardData(text: code));
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Code copied to clipboard'),
-        ),
-      );
-    }
-
-    setViewCode() {
-      setState(() {
-        visibleWidget = CodeViewer(code: code);
-        visibleCode = true;
       });
     }
 
@@ -99,7 +107,10 @@ class _MyHomePageState extends State<MyHomePage> {
       {"name": "SOmeName2", "buttonColor": Color.fromARGB(255, 105, 54, 244)},
     ];
     double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
+      backgroundColor:
+          _currentTheme == ThemeType.light ? Colors.white : Colors.black,
       body: Stack(
         children: [
           Column(
@@ -124,42 +135,31 @@ class _MyHomePageState extends State<MyHomePage> {
                       color: Colors.white,
                     ),
                     const Spacer(),
-                    Visibility(
-                        visible: !visibleCode,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8),
-                          child: ElevatedButton(
-                            onPressed: setViewCode,
-                            style: elevatedButtonStyle,
-                            child: const Text('View Code'),
-                          ),
-                        )),
-                    Visibility(
-                        visible: visibleCode,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8),
-                          child: ElevatedButton(
-                            onPressed: () => copyToClipboard(context),
-                            style: elevatedButtonStyle,
-                            child: const Text('Copy to Clipboard'),
-                          ),
-                        )),
-                    Visibility(
-                        visible: visibleCode,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8),
-                          child: ElevatedButton(
-                            onPressed: setViewWidget,
-                            style: elevatedButtonStyle,
-                            child: const Text('Preview'),
-                          ),
-                        )),
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: ElevatedButton(
+                        onPressed: DownLoad,
+                        style: elevatedButtonStyle,
+                        child: const Text('Download'),
+                      ),
+                    ),
                     Padding(
                         padding: const EdgeInsets.all(8),
                         child: StyleChoicer(
                           changeStyleFunction: changeStyle,
                           styles: styles,
                         )),
+                    InkWell(
+                        onTap: _toggleTheme,
+                        child: AnimatedSwitcher(
+                          duration: const Duration(milliseconds: 500),
+                          child: _currentTheme == ThemeType.light
+                              ? Icon(Icons.wb_sunny,
+                                  size: 50.0, key: ValueKey('light'))
+                              : Icon(Icons.nightlight_round,
+                                  size: 50.0, key: ValueKey('dark')),
+                        )),
+                        SizedBox(width: 10,height: 5,)
                   ],
                 ),
               ),
@@ -209,11 +209,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   animateStart = false;
                 });
               },
-              decoration: const BoxDecoration(
-                color: Colors.white,
+              decoration: BoxDecoration(
+                color: _currentTheme == ThemeType.light
+                    ? Colors.white
+                    : Colors.black,
                 border: Border(
                   right: BorderSide(
-                    color: Colors.black, // Adjust the color as needed
+                    color: _currentTheme == ThemeType.light
+                        ? Colors.black
+                        : Colors.white, // Adjust the color as needed
                     width: 2.0, // Adjust the width as needed
                   ),
                 ),
@@ -245,5 +249,6 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
     );
+    ;
   }
 }
