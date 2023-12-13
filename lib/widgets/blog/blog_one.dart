@@ -184,9 +184,9 @@ class BlogOne extends StatefulWidget {
 }
 
 class _BlogOneState extends State<BlogOne> {
-  List<Widget> widgets = [
+  List<BodySection> widgets = [
     BodySection(
-        title: "Заголовок 1",
+        title: "АБОБА",
         innerText: "Текст внутри первого блока",
         widgetWidth: 250,
         widgetHeight: 200),
@@ -204,6 +204,26 @@ class _BlogOneState extends State<BlogOne> {
       fontSizeTitle: 1,
     ),
   ];
+
+String genWigetString(List<BodySection> widgets){
+  String result = '';
+  for (final widget in widgets ){
+    result+= """
+    BodySection(
+              title: "${widget.title}",
+              innerText: "${widget.innerText}",
+              widgetWidth: ${widget.widgetWidth},
+              widgetHeight: ${widget.widgetHeight},
+              fontSizeText: ${widget.fontSizeText},
+              fontSizeTitle: ${widget.fontSizeTitle},
+            ),
+    """;
+  }
+  print(result);
+
+  return result;
+}
+
   @override
   Widget build(BuildContext context) {
     setState(() {
@@ -242,24 +262,8 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            BodySection(
-                title: "Заголовок 1",
-                innerText: "Текст внутри первого блока",
-                widgetWidth: 250,
-                widgetHeight: 200),
-            BodySection(
-              title: "Заголовок 2",
-              innerText: "Текст внутри второго блока",
-              widgetWidth: 625,
-              widgetHeight: 500,
-            ),
-            BodySection(
-              title: "Заголовок 3",
-              innerText: "Текст внутри третьего блока",
-              widgetWidth: 125,
-              widgetHeight: 100,
-              fontSizeTitle: 1,
-            ),
+            ${genWigetString(widgets)}
+            
           ]),
     )
     );
