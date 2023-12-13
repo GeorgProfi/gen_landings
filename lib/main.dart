@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       title: 'Generation Landings',
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
-      home: MyHomePage(title: "some"),
+      home: const MyHomePage(title: "some"),
     );
   }
 }
@@ -74,7 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void DownLoad() {
+  void download() {
     print('Скачано');
   }
 
@@ -85,13 +85,6 @@ class _MyHomePageState extends State<MyHomePage> {
         choiceWidget = widgetToAdd;
         visibleWidget = widgetToAdd;
         code = widgetCode;
-        visibleCode = false;
-      });
-    }
-
-    setViewWidget() {
-      setState(() {
-        visibleWidget = choiceWidget;
         visibleCode = false;
       });
     }
@@ -138,7 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     Padding(
                       padding: const EdgeInsets.all(8),
                       child: ElevatedButton(
-                        onPressed: DownLoad,
+                        onPressed: download,
                         style: elevatedButtonStyle,
                         child: const Text('Download'),
                       ),
@@ -154,12 +147,12 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: AnimatedSwitcher(
                           duration: const Duration(milliseconds: 500),
                           child: _currentTheme == ThemeType.light
-                              ? Icon(Icons.wb_sunny,
+                              ? const Icon(Icons.wb_sunny,
                                   size: 50.0, key: ValueKey('light'))
-                              : Icon(Icons.nightlight_round,
+                              : const Icon(Icons.nightlight_round,
                                   size: 50.0, key: ValueKey('dark')),
                         )),
-                        SizedBox(width: 10,height: 5,)
+                        const SizedBox(width: 10,height: 5,)
                   ],
                 ),
               ),
@@ -189,7 +182,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             )
                           : visibleWidget,
                     )),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     )
                   ],
@@ -249,6 +242,6 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
     );
-    ;
+    
   }
 }
