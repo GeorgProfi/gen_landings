@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gen_landings/style_choicer.dart';
 import 'package:gen_landings/widgets/blog/blog_one.dart';
+import 'package:gen_landings/widgets/blog/gen_widget.dart';
+
+import 'widgets/blog/blog_one_mini_widget.dart';
+import 'widgets/blog/body_section.dart';
 
 enum ThemeEvent { toggle }
 
@@ -65,6 +69,26 @@ class _MyHomePageState extends State<MyHomePage> {
   List<BlogOne> columnOfWidget = [
     BlogOne(
       pageTitle: "hey ho",
+      widgetsParams: [
+    BodySection(
+        title: "АБОБА",
+        innerText: "Текст внутри первого блока",
+        widgetWidth: 250,
+        widgetHeight: 200),
+    BodySection(
+      title: "Заголовок 2",
+      innerText: "Текст внутри второго блока",
+      widgetWidth: 625,
+      widgetHeight: 500,
+    ),
+    BodySection(
+      title: "Заголовок 3",
+      innerText: "Текст внутри третьего блока",
+      widgetWidth: 125,
+      widgetHeight: 100,
+      fontSizeTitle: 1,
+    ),
+  ]
     )
   ];
   pressButt() {
@@ -75,7 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void download() {
-    print('Скачано');
+    downloadArchive();
   }
 
   @override
@@ -152,7 +176,10 @@ class _MyHomePageState extends State<MyHomePage> {
                               : const Icon(Icons.nightlight_round,
                                   size: 50.0, key: ValueKey('dark')),
                         )),
-                        const SizedBox(width: 10,height: 5,)
+                    const SizedBox(
+                      width: 10,
+                      height: 5,
+                    )
                   ],
                 ),
               ),
@@ -242,6 +269,5 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
     );
-    
   }
 }

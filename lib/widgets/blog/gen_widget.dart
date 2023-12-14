@@ -1,4 +1,7 @@
 import 'body_section.dart';
+import 'dart:typed_data';
+import 'package:archive/archive.dart';
+import 'package:universal_html/html.dart' as html;
 
 String genWidgetString(List<BodySection> widgets) {
   String result = '';
@@ -48,17 +51,19 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  List<BodySection> widgets = [${genWidgetString(widgets)}];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
       padding: const EdgeInsets.all(16.0),
-      child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            ${genWidgetString(widgets)}
-            
-          ]),
+      child: GridView.builder(
+          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+              maxCrossAxisExtent: 500, mainAxisSpacing: 8, crossAxisSpacing: 8),
+          itemCount: widgets.length,
+          itemBuilder: (context, index) {
+            return widgets[index];
+          }),
     )
     );
   }
@@ -66,3 +71,26 @@ class _MyHomePageState extends State<MyHomePage> {
 """;
   return code;
 }
+
+void downloadArchive() {
+  final List<String> fileNames = ['file1.dart', 'file2.dart', 'file3.dart'];
+  var archive = Archive();
+  fileNames.forEach((fileName) {
+    final content = 'Your Dart code for $fileName';
+    archive.addFile(ArchiveFile(
+        fileName, content.length, Uint8List.fromList(content.codeUnits)));
+  });
+
+  final zipBytes = ZipEncoder().encode(archive);
+
+  final blob = html.Blob([Uint8List.fromList(zipBytes!)]);
+  final url = html.Url.createObjectUrlFromBlob(blob);
+
+  final anchor = html.AnchorElement(href: url)
+    ..target = 'download'
+    ..download = 'archive.zip'
+    ..click();
+  
+  html.Url.revokeObjectUrl(url);
+}
+
