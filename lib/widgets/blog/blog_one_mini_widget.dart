@@ -10,9 +10,9 @@ class MiniWidget extends StatelessWidget {
 }
 
 class MiniWidgetBlogOne extends StatelessWidget {
-  double hBlock2lvl = 50;
-  Color mainColor;
-  MiniWidgetBlogOne({Key? key, required this.mainColor}) : super(key: key);
+  final double hBlock2lvl = 50;
+  final Color mainColor;
+  const MiniWidgetBlogOne({Key? key, required this.mainColor}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +25,9 @@ class MiniWidgetBlogOne extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              miniWidgetImg(hBlock2lvl: hBlock2lvl, mainColor: mainColor),
-              miniWidgetImg(hBlock2lvl: hBlock2lvl, mainColor: mainColor),
-              miniWidgetImg(hBlock2lvl: hBlock2lvl, mainColor: mainColor),
+              MiniWidgetImg(hBlock2lvl: hBlock2lvl, mainColor: mainColor),
+              MiniWidgetImg(hBlock2lvl: hBlock2lvl, mainColor: mainColor),
+              MiniWidgetImg(hBlock2lvl: hBlock2lvl, mainColor: mainColor),
             ],
           ),
         )
@@ -36,10 +36,10 @@ class MiniWidgetBlogOne extends StatelessWidget {
   }
 }
 
-class miniWidgetImg extends StatelessWidget {
+class MiniWidgetImg extends StatelessWidget {
   final double hBlock2lvl;
   final Color mainColor;
-  miniWidgetImg({Key? key, required this.hBlock2lvl, required this.mainColor})
+  const MiniWidgetImg({Key? key, required this.hBlock2lvl, required this.mainColor})
       : super(key: key);
 
   @override

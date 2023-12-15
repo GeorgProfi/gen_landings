@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gen_landings/style_choicer.dart';
+import 'package:gen_landings/export_settings.dart';
+import 'package:gen_landings/import_settings.dart';
 import 'package:gen_landings/widgets/blog/blog_one.dart';
 import 'package:gen_landings/widgets/blog/gen_widget.dart';
 
@@ -60,36 +62,31 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget choiceWidget = Container();
-  Widget visibleWidget = Container();
-  String code = "";
-  bool visibleCode = false;
+  List<Widget> visibleWidget = [];
   bool headerVisible = true;
   bool animateStart = false;
   Color topHeaderColor = const Color.fromARGB(255, 85, 21, 21);
   List<BlogOne> columnOfWidget = [
-    BlogOne(
-      pageTitle: "hey ho",
-      widgetsParams: [
-    BodySection(
-        title: "АБОБА",
-        innerText: "Текст внутри первого блока",
-        widgetWidth: 250,
-        widgetHeight: 200),
-    BodySection(
-      title: "Заголовок 2",
-      innerText: "Текст внутри второго блока",
-      widgetWidth: 625,
-      widgetHeight: 500,
-    ),
-    BodySection(
-      title: "Заголовок 3",
-      innerText: "Текст внутри третьего блока",
-      widgetWidth: 125,
-      widgetHeight: 100,
-      fontSizeTitle: 1,
-    ),
-  ]
-    )
+    BlogOne(pageTitle: "hey ho", widgetsParams: [
+      BodySection(
+          title: "АБОБА",
+          innerText: "Текст внутри первого блока",
+          widgetWidth: 250,
+          widgetHeight: 200),
+      BodySection(
+        title: "Заголовок 2",
+        innerText: "Текст внутри второго блока",
+        widgetWidth: 625,
+        widgetHeight: 500,
+      ),
+      BodySection(
+        title: "Заголовок 3",
+        innerText: "Текст внутри третьего блока",
+        widgetWidth: 125,
+        widgetHeight: 100,
+        fontSizeTitle: 1,
+      ),
+    ])
   ];
   pressButt() {
     setState(() {
@@ -102,14 +99,20 @@ class _MyHomePageState extends State<MyHomePage> {
     downloadArchive();
   }
 
+  void importSettingsButton() {
+    importSettings();
+  }
+
+  void exportSettingsButton() {
+    exportSettings(visibleWidget);
+  }
+
   @override
   Widget build(BuildContext context) {
-    setWidget(Widget widgetToAdd, String widgetCode) {
+    setWidget(Widget widgetToAdd) {
       setState(() {
         choiceWidget = widgetToAdd;
-        visibleWidget = widgetToAdd;
-        code = widgetCode;
-        visibleCode = false;
+        visibleWidget.add(widgetToAdd);
       });
     }
 
@@ -152,6 +155,22 @@ class _MyHomePageState extends State<MyHomePage> {
                       color: Colors.white,
                     ),
                     const Spacer(),
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: ElevatedButton(
+                        onPressed: importSettingsButton,
+                        style: elevatedButtonStyle,
+                        child: const Text('Import'),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: ElevatedButton(
+                        onPressed: exportSettingsButton,
+                        style: elevatedButtonStyle,
+                        child: const Text('Export'),
+                      ),
+                    ),
                     Padding(
                       padding: const EdgeInsets.all(8),
                       child: ElevatedButton(
@@ -202,13 +221,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       height: 10,
                     ),
                     Expanded(
-                        child: Container(
-                      child: visibleCode
-                          ? SingleChildScrollView(
-                              child: visibleWidget,
-                            )
-                          : visibleWidget,
-                    )),
+                      child: CustomScrollView(slivers: visibleWidget),
+                    ),
                     const SizedBox(
                       width: 10,
                     )
@@ -253,8 +267,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         children: [
                           InkWell(
                             onTap: () {
-                              setWidget(
-                                  columnOfWidget[0], columnOfWidget[0].code);
+                              setWidget(columnOfWidget[0]);
                             },
                             child: MiniWidgetBlogOne(
                               mainColor: topHeaderColor,
