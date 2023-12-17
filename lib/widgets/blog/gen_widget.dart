@@ -1,7 +1,5 @@
 import 'body_section.dart';
-import 'dart:typed_data';
-import 'package:archive/archive.dart';
-import 'package:universal_html/html.dart' as html;
+
 
 String genWidgetString(List<BodySection> widgets) {
   String result = '';
@@ -72,26 +70,4 @@ class _MyHomePageState extends State<MyHomePage> {
   return code;
 }
 
-void downloadArchive() {
-  final List<String> fileNames = ['file1.dart', 'file2.dart', 'file3.dart'];
-  var archive = Archive();
-  fileNames.forEach((fileName) {
-    final content = 'Your Dart code for $fileName';
-    archive.addFile(ArchiveFile(
-        fileName, content.length, Uint8List.fromList(content.codeUnits)));
-  });
-
-  final zipBytes = ZipEncoder().encode(archive);
-
-  final blob = html.Blob([Uint8List.fromList(zipBytes!)]);
-  final url = html.Url.createObjectUrlFromBlob(blob);
-
-  // ignore: unused_local_variable
-  final anchor = html.AnchorElement(href: url)
-    ..target = 'download'
-    ..download = 'archive.zip'
-    ..click();
-  
-  html.Url.revokeObjectUrl(url);
-}
 

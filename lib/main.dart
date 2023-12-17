@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:gen_landings/style_choicer.dart';
-import 'package:gen_landings/export_settings.dart';
-import 'package:gen_landings/import_settings.dart';
-import 'package:gen_landings/widgets/blog/blog_one.dart';
-import 'package:gen_landings/widgets/blog/gen_widget.dart';
-
+import 'package:gen_landings/excel/export_settings.dart';
+import 'package:gen_landings/excel/import_settings.dart';
+import 'widgets/blog/blog_one.dart';
+import 'package:gen_landings/gen_code/gen_main_dart.dart';
+import "gen_code/gen_code_widget_params.dart";
 import 'widgets/blog/blog_one_mini_widget.dart';
 import 'widgets/blog/body_section.dart';
+import 'dart:html' as html;
 
 enum ThemeEvent { toggle }
 
@@ -62,31 +63,11 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget choiceWidget = Container();
-  List<Widget> visibleWidget = [];
   bool headerVisible = true;
   bool animateStart = false;
   Color topHeaderColor = const Color.fromARGB(255, 85, 21, 21);
-  List<BlogOne> columnOfWidget = [
-    BlogOne(pageTitle: "hey ho", widgetsParams: [
-      BodySection(
-          title: "АБОБА",
-          innerText: "Текст внутри первого блока",
-          widgetWidth: 250,
-          widgetHeight: 200),
-      BodySection(
-        title: "Заголовок 2",
-        innerText: "Текст внутри второго блока",
-        widgetWidth: 625,
-        widgetHeight: 500,
-      ),
-      BodySection(
-        title: "Заголовок 3",
-        innerText: "Текст внутри третьего блока",
-        widgetWidth: 125,
-        widgetHeight: 100,
-        fontSizeTitle: 1,
-      ),
-    ])
+  List<List<dynamic>> columnOfWidget = [
+    [BlogOne, MiniWidgetBlogOne(mainColor: Color.fromARGB(255, 85, 21, 21))]
   ];
   pressButt() {
     setState(() {
@@ -95,24 +76,50 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void download() {
-    downloadArchive();
+  Future<void> importSettingsButton() async {
+    int countParams = await importSettings();
+    if (countParams > 0) {
+      setState(() {});
+    }
   }
 
-  void importSettingsButton() {
-    importSettings();
-  }
-
-  void exportSettingsButton() {
-    exportSettings(visibleWidget);
-  }
+  List<dynamic> visibleParams = [
+   
+  ];
 
   @override
   Widget build(BuildContext context) {
-    setWidget(Widget widgetToAdd) {
+    Map<String, Widget Function(Map<String, dynamic>)> widgetBuilders = {
+      "BlogOne": (params) => BlogOne(widgetsParams: params),
+      // Add more widget builders as needed
+    };
+    List<Widget> visibleWidget = [];
+    for (int i = 0; i < visibleParams.length; i++) {
+      Map<String, dynamic> commonParams = visibleParams[i];
+      print(widgetBuilders[commonParams["name"]]);
+      Widget Function(Map<String, dynamic>) widgetBuilder =
+          widgetBuilders[commonParams["name"]]!;
+
+      visibleWidget.add(widgetBuilder(commonParams));
+    }
+    void exportSettingsButton() {
+      exportSettings(visibleWidget);
+    }
+
+    void download() {
+      List<dynamic> paramsWidget = [];
+      int lengthWidgets = visibleWidget.length;
+      for (int i = 1; i <= lengthWidgets; ++i) {
+        print(i);
+        paramsWidget.add(html.window.localStorage["widget $i"]);
+      }
+      downloadArchive(paramsWidget);
+    }
+
+    setWidget(String widgetToAdd) {
       setState(() {
-        choiceWidget = widgetToAdd;
-        visibleWidget.add(widgetToAdd);
+        visibleParams.add(generateParams[widgetToAdd]!["defaultParams"]);
+        print(visibleParams);
       });
     }
 
@@ -265,13 +272,21 @@ class _MyHomePageState extends State<MyHomePage> {
                       visible: headerVisible && !animateStart,
                       child: Column(
                         children: [
-                          InkWell(
-                            onTap: () {
-                              setWidget(columnOfWidget[0]);
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: columnOfWidget.length,
+                            itemBuilder: (context, index) {
+                              return InkWell(
+                                  onTap: () {
+                                    setWidget(
+                                        columnOfWidget[index][0].toString());
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8),
+                                    child: columnOfWidget[index][1],
+                                  ));
                             },
-                            child: MiniWidgetBlogOne(
-                              mainColor: topHeaderColor,
-                            ),
                           ),
                         ],
                       )),
