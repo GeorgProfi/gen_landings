@@ -1,17 +1,20 @@
+import 'dart:io';
 import 'dart:typed_data';
 import 'package:archive/archive.dart';
 import 'package:gen_landings/gen_code/gen_code_widget_params.dart';
 import 'package:universal_html/html.dart' as html;
 import 'dart:convert';
+import 'package:path/path.dart' as path;
 
 void downloadArchive(List<dynamic> widgetsParams) {
   String mainCode = "import 'package:flutter/material.dart';";
   List<String> usedWidgets = [];
   List<dynamic> jsonParams = [];
+  List<String> jsonStrings = [];
   for (var widgetParam in widgetsParams) {
     String jsonString = widgetParam.replaceAllMapped(
         RegExp(r'([a-zA-ZЁёА-я]+)'), (match) => '"${match.group(1)}"');
-
+    jsonStrings.add(jsonString);
     // Add double quotes around values
     Map<String, dynamic> myMap = json.decode(jsonString);
     mainCode += usedWidgets.contains(myMap['name'])
@@ -21,6 +24,12 @@ void downloadArchive(List<dynamic> widgetsParams) {
     if (!usedWidgets.contains(myMap['name'])) {
       usedWidgets.add(myMap['name']);
     }
+  }
+
+  String visibleWidget = "";
+  for (var widget in usedWidgets) {
+    visibleWidget +=
+        """"$widget": (params) => $widget(widgetsParams: params),""";
   }
   mainCode += """void main() {
   runApp(MyApp());
@@ -40,6 +49,17 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
+   Map<String, Widget Function(Map<String, dynamic>)> widgetBuilders = {
+     $visibleWidget
+    };
+    List<Widget> visibleWidget = $jsonStrings;
+    for (int i = 0; i < visibleParams.length; i++) {
+      Map<String, dynamic> commonParams = visibleParams[i];
+      Widget Function(Map<String, dynamic>) widgetBuilder =
+          widgetBuilders[commonParams["name"]]!;
+
+      visibleWidget.add(widgetBuilder(commonParams));
+    }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,9 +85,14 @@ class MyHomePage extends StatelessWidget {
   }
 }""";
   var archive = Archive();
-  const content = 'Your Dart code for';
   archive.addFile(ArchiveFile(
-      'main.dart', content.length, Uint8List.fromList(content.codeUnits)));
+      'main.dart', mainCode.length, Uint8List.fromList(mainCode.codeUnits)));
+  for (var widget in usedWidgets) {
+    for (int i = 0 ; i < generateParams[widget]!["archiveFiles"].length;i++) {
+      archive.addFile(ArchiveFile(generateParams[widget]!["archiveFilesNames"][i], generateParams[widget]!["archiveFiles"][i].length,
+          Uint8List.fromList(generateParams[widget]!["archiveFiles"][i].codeUnits)));
+    }
+  }
   final zipBytes = ZipEncoder().encode(archive);
 
   final blob = html.Blob([Uint8List.fromList(zipBytes!)]);
@@ -80,4 +105,19 @@ class MyHomePage extends StatelessWidget {
     ..click();
 
   html.Url.revokeObjectUrl(url);
+}
+
+Future<String> readTextFromFile(String filePath) async {
+  try {
+    File file = File(filePath);
+    if (await file.exists()) {
+      String contents = await file.readAsString();
+      return contents;
+    } else {
+      throw FileSystemException('File not found', filePath);
+    }
+  } catch (e) {
+    print('Error reading file: $e');
+    return '';
+  }
 }

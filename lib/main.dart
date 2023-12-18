@@ -66,9 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
   bool headerVisible = true;
   bool animateStart = false;
   Color topHeaderColor = const Color.fromARGB(255, 85, 21, 21);
-  List<List<dynamic>> columnOfWidget = [
-    [BlogOne, const MiniWidgetBlogOne(mainColor: Color.fromARGB(255, 85, 21, 21))]
-  ];
+
   pressButt() {
     setState(() {
       headerVisible = !headerVisible;
@@ -98,6 +96,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+      List<List<dynamic>> columnOfWidget = [
+    [BlogOne, MiniWidgetBlogOne(mainColor: topHeaderColor)]
+  ];
     Map<String, Widget Function(Map<String, dynamic>)> widgetBuilders = {
       "BlogOne": (params) => BlogOne(widgetsParams: params),
       // Add more widget builders as needed
@@ -126,6 +127,7 @@ class _MyHomePageState extends State<MyHomePage> {
     setWidget(String widgetToAdd) {
       setState(() {
         visibleParams.add(generateParams[widgetToAdd]!["defaultParams"]);
+        html.window.localStorage["widget ${visibleParams.length}"] = generateParams[widgetToAdd]!["defaultParams"].toString();
       });
     }
 
