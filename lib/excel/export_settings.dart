@@ -12,7 +12,6 @@ void exportSettings(List<Widget> widgets) {
   for (Widget widget in widgets) {
     int sheetRow = 1;
     String widgetString = widget.toString();
-    print('$widgetString $curWidgetIndex');
     Sheet sheet = excel['$widgetString $curWidgetIndex'];
 
     Map<String, dynamic> currentParams = params[widgetString]!;

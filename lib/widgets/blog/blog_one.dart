@@ -12,7 +12,6 @@ class BlogOne extends StatefulWidget {
 class _BlogOneState extends State<BlogOne> {
   @override
   Widget build(BuildContext context) {
-    print(widget.widgetsParams);
     return SliverGrid(
       gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
           maxCrossAxisExtent: 500, mainAxisSpacing: 8, crossAxisSpacing: 8),

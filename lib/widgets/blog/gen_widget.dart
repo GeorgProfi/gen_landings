@@ -15,7 +15,6 @@ String genWidgetString(List<BodySection> widgets) {
             ),
     """;
   }
-  print(result);
 
   return result;
 }

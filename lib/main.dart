@@ -6,8 +6,8 @@ import 'widgets/blog/blog_one.dart';
 import 'package:gen_landings/gen_code/gen_main_dart.dart';
 import "gen_code/gen_code_widget_params.dart";
 import 'widgets/blog/blog_one_mini_widget.dart';
-import 'widgets/blog/body_section.dart';
 import 'dart:html' as html;
+import 'dart:convert';
 
 enum ThemeEvent { toggle }
 
@@ -67,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
   bool animateStart = false;
   Color topHeaderColor = const Color.fromARGB(255, 85, 21, 21);
   List<List<dynamic>> columnOfWidget = [
-    [BlogOne, MiniWidgetBlogOne(mainColor: Color.fromARGB(255, 85, 21, 21))]
+    [BlogOne, const MiniWidgetBlogOne(mainColor: Color.fromARGB(255, 85, 21, 21))]
   ];
   pressButt() {
     setState(() {
@@ -79,13 +79,22 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> importSettingsButton() async {
     int countParams = await importSettings();
     if (countParams > 0) {
-      setState(() {});
+      setState(() {
+        visibleParams = [];
+        for (int i = 1; i <= countParams; i++) {
+          String? curParams = html.window.localStorage["widget $i"];
+          if (curParams != null) {
+            String jsonString = curParams.replaceAllMapped(
+                RegExp(r'([a-zA-ZЁёА-я]+)'), (match) => '"${match.group(1)}"');
+            Map<String, dynamic> myMap = json.decode(jsonString);
+            visibleParams.add(myMap);
+          }
+        }
+      });
     }
   }
 
-  List<dynamic> visibleParams = [
-   
-  ];
+  List<dynamic> visibleParams = [];
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +105,6 @@ class _MyHomePageState extends State<MyHomePage> {
     List<Widget> visibleWidget = [];
     for (int i = 0; i < visibleParams.length; i++) {
       Map<String, dynamic> commonParams = visibleParams[i];
-      print(widgetBuilders[commonParams["name"]]);
       Widget Function(Map<String, dynamic>) widgetBuilder =
           widgetBuilders[commonParams["name"]]!;
 
@@ -110,7 +118,6 @@ class _MyHomePageState extends State<MyHomePage> {
       List<dynamic> paramsWidget = [];
       int lengthWidgets = visibleWidget.length;
       for (int i = 1; i <= lengthWidgets; ++i) {
-        print(i);
         paramsWidget.add(html.window.localStorage["widget $i"]);
       }
       downloadArchive(paramsWidget);
@@ -119,7 +126,6 @@ class _MyHomePageState extends State<MyHomePage> {
     setWidget(String widgetToAdd) {
       setState(() {
         visibleParams.add(generateParams[widgetToAdd]!["defaultParams"]);
-        print(visibleParams);
       });
     }
 

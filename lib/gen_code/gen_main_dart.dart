@@ -10,10 +10,9 @@ void downloadArchive(List<dynamic> widgetsParams) {
   List<dynamic> jsonParams = [];
   for (var widgetParam in widgetsParams) {
     String jsonString = widgetParam.replaceAllMapped(
-        RegExp(r'([a-zA-Z]+)'), (match) => '"${match.group(1)}"');
+        RegExp(r'([a-zA-ZЁёА-я]+)'), (match) => '"${match.group(1)}"');
 
     // Add double quotes around values
-    print(jsonString);
     Map<String, dynamic> myMap = json.decode(jsonString);
     mainCode += usedWidgets.contains(myMap['name'])
         ? ""
@@ -66,7 +65,7 @@ class MyHomePage extends StatelessWidget {
   }
 }""";
   var archive = Archive();
-  final content = 'Your Dart code for';
+  const content = 'Your Dart code for';
   archive.addFile(ArchiveFile(
       'main.dart', content.length, Uint8List.fromList(content.codeUnits)));
   final zipBytes = ZipEncoder().encode(archive);
