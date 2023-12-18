@@ -49,10 +49,14 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
-   Map<String, Widget Function(Map<String, dynamic>)> widgetBuilders = {
+  
+  @override
+  Widget build(BuildContext context) {
+     Map<String, Widget Function(Map<String, dynamic>)> widgetBuilders = {
      $visibleWidget
     };
-    List<Widget> visibleWidget = $jsonStrings;
+    List<Widget> visibleWidget = [];
+    List<dynamic> visibleParams = $jsonStrings;
     for (int i = 0; i < visibleParams.length; i++) {
       Map<String, dynamic> commonParams = visibleParams[i];
       Widget Function(Map<String, dynamic>) widgetBuilder =
@@ -60,8 +64,6 @@ class MyHomePage extends StatelessWidget {
 
       visibleWidget.add(widgetBuilder(commonParams));
     }
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Hello, Flutter!'),

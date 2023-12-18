@@ -8,10 +8,11 @@ import "gen_code/gen_code_widget_params.dart";
 import 'widgets/blog/blog_one_mini_widget.dart';
 import 'dart:html' as html;
 import 'dart:convert';
+import 'consts.dart';
 
 enum ThemeEvent { toggle }
 
-enum ThemeType { light, dark }
+
 
 // Состояния для BLoC
 class ThemeState {
@@ -97,11 +98,11 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
       List<List<dynamic>> columnOfWidget = [
-    [BlogOne, MiniWidgetBlogOne(mainColor: topHeaderColor)]
+    [BlogOne, MiniWidgetBlogOne(mainColor: topHeaderColor,theme:_currentTheme)]
   ];
     Map<String, Widget Function(Map<String, dynamic>)> widgetBuilders = {
       "BlogOne": (params) => BlogOne(widgetsParams: params),
-      // Add more widget builders as needed
+      // Add more widget builders as needed 
     };
     List<Widget> visibleWidget = [];
     for (int i = 0; i < visibleParams.length; i++) {

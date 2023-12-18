@@ -1,6 +1,6 @@
 Map<String, Map<String, dynamic>> generateParams = {
   "BlogOne": {
-    "imports": """import 'widgets/blog_one.dart';""",
+    "imports": """import 'blog_one.dart';""",
     "defaultParams": {
       "height": 150,
       "width": 150,
