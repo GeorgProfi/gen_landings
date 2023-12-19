@@ -138,14 +138,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
     setWidget(String widgetToAdd) {
       setState(() {
-        if (widgetToAdd.toUpperCase().contains("HEADER")) {
-          if (visibleParams.isNotEmpty &&
-              visibleParams[0]["name"].toUpperCase().contains("HEADER")) {
-            print(1);
+        bool isHeaderWidget = widgetToAdd.toUpperCase().contains("HEADER");
+        bool isFirstParamHeader = visibleParams.isNotEmpty &&
+            visibleParams[0]["name"].toUpperCase().contains("HEADER");
+        if (isHeaderWidget) {
+          if (isFirstParamHeader) {
             visibleParams[0] = generateParams[widgetToAdd]!["defaultParams"];
           } else {
-            print(2);
-
             if (visibleParams.isNotEmpty) {
               visibleParams.insert(
                   0, generateParams[widgetToAdd]!["defaultParams"]);
@@ -153,6 +152,8 @@ class _MyHomePageState extends State<MyHomePage> {
               visibleParams.add(generateParams[widgetToAdd]!["defaultParams"]);
             }
           }
+          html.window.localStorage["header"] =
+              generateParams[widgetToAdd]!["defaultParams"].toString();
         } else {
           visibleParams.add(generateParams[widgetToAdd]!["defaultParams"]);
           html.window.localStorage["widget ${visibleParams.length}"] =
