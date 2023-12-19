@@ -13,8 +13,7 @@ class _BlogOneState extends State<HeaderOne> {
   @override
   Widget build(BuildContext context) {
     return SliverGrid(
-      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 500, mainAxisSpacing: 8, crossAxisSpacing: 8),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1),
       delegate: SliverChildBuilderDelegate(
         (BuildContext context, int index) {
           return HeaderWidget(

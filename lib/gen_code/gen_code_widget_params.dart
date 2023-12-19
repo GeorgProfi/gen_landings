@@ -228,13 +228,13 @@ class BodySection extends StatelessWidget {
    "HeaderOne": {
     "imports": """import 'blog_one.dart';""",
     "defaultParams": {
-      "height": 150,
-      "width": 150,
-      "shouldRepeat": 3,
+      "height": 50,
+      "width": double.infinity,
+      "shouldRepeat": 1,
       "img": ["hh", 1, 1],
-      "category": ["category", "category", "category"],
-      "title": ["title", "title", "title"],
-      "description": ["desc", "desc", "desc"],
+      "category": ["category"],
+      "title": ["title"],
+      "description": ["desc"],
       "name": "HeaderOne"
     },
     "archiveFilesNames":["blog_one.dart","body_section.dart"],
