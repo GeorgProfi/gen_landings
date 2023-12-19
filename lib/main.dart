@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gen_landings/excel/excel_params.dart';
 import 'package:gen_landings/style_choicer.dart';
 import 'package:gen_landings/excel/export_settings.dart';
 import 'package:gen_landings/excel/import_settings.dart';
@@ -9,6 +10,15 @@ import 'widgets/blog/blog_one_mini_widget.dart';
 import 'dart:html' as html;
 import 'dart:convert';
 import 'consts.dart';
+
+import 'widgets/header/gen_widget.dart';
+import 'widgets/header/header_one.dart';
+import 'widgets/header/header_one_mini_widget.dart';
+import 'widgets/header/header_widget.dart';
+
+
+
+
 
 enum ThemeEvent { toggle }
 
@@ -98,10 +108,12 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
       List<List<dynamic>> columnOfWidget = [
-    [BlogOne, MiniWidgetBlogOne(mainColor: topHeaderColor,theme:_currentTheme)]
+    [BlogOne, MiniWidgetBlogOne(mainColor: topHeaderColor,theme:_currentTheme)],
+    [HeaderOne, MiniWidgetHeaderOne(mainColor: topHeaderColor, theme: _currentTheme) ]
   ];
     Map<String, Widget Function(Map<String, dynamic>)> widgetBuilders = {
       "BlogOne": (params) => BlogOne(widgetsParams: params),
+      "HeaderOne": (params)=> HeaderOne(widgetsParams: params)
       // Add more widget builders as needed 
     };
     List<Widget> visibleWidget = [];
