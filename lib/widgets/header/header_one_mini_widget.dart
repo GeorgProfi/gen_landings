@@ -20,25 +20,35 @@ class MiniWidgetHeaderOne extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
+    return Container(
+      color: const Color.fromARGB(255, 224, 224, 224),
+      width: 170,
+      height: 20,
+      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         Container(
-          color: mainColor,
-          height: 100,
-          width: 170,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              MiniWidgetImg(
-                  hBlock2lvl: hBlock2lvl, mainColor: mainColor, theme: theme),
-              MiniWidgetImg(
-                  hBlock2lvl: hBlock2lvl, mainColor: mainColor, theme: theme),
-              MiniWidgetImg(
-                  hBlock2lvl: hBlock2lvl, mainColor: mainColor, theme: theme),
-            ],
-          ),
+          width: 57,
+          height: 10,
+          alignment: Alignment.center,
+
+          child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+            CircleAvatar(backgroundColor: mainColor,),  
+            SizedBox(width: 2),
+            Container(color: mainColor, width: 15, height: 4,),
+          ]),
+        ),
+        Container(
+          width: 50,
+          height: 10,
+          alignment: Alignment.center,
+          child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [
+            Container(color: mainColor, width: 7, height: 4,),
+            Container(color: mainColor, width: 7, height: 4,),
+            Container(color: mainColor, width: 7, height: 4,),  
+            SizedBox(width: 5,)
+            
+          ]),
         )
-      ],
+      ]),
     );
   }
 }
