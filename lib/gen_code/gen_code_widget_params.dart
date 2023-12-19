@@ -230,8 +230,6 @@ class BodySection extends StatelessWidget {
     "defaultParams": {
       "height": 50,
       "width": double.infinity,
-      "shouldRepeat": 1,
-      "img": ["hh", 1, 1],
       "category": ["category"],
       "title": ["title"],
       "description": ["desc"],

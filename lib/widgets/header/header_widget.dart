@@ -31,13 +31,13 @@ class HeaderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [Container(
+    return Container(
       
       color: Colors.red,
       width: double.infinity,
       height: 100,
       
-    )]);
+    );
     
   }
 }
