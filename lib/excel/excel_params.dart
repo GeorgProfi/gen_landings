@@ -7,6 +7,14 @@ Map<String, Map<String, dynamic>> params = {
     "category": "category",
     "title": "title",
     "description": "desc"
+  },
+  "HeaderOne": {
+    "height": 50,
+    "width": 30000,
+    "category": ["category"],
+    "title": ["title"],
+    "description": ["desc"],
+    "name": "HeaderOne"
   }
 };
 

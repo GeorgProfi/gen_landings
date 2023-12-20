@@ -4,7 +4,6 @@ import 'package:universal_html/html.dart' as html;
 import 'package:flutter/material.dart';
 import 'package:excel/excel.dart';
 
-
 void exportSettings(List<Widget> widgets) {
   var excel = Excel.createExcel();
   int curWidgetIndex = 1;
@@ -15,7 +14,7 @@ void exportSettings(List<Widget> widgets) {
     Sheet sheet = excel['$widgetString $curWidgetIndex'];
 
     Map<String, dynamic> currentParams = params[widgetString]!;
-
+    print(currentParams);
     // Set widget information
     curWidgetIndex++;
 
